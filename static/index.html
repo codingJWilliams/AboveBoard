@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AboveBoard</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand navbar-link" href="#">AboveBoard Link Shadifier</a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="active" role="presentation">
+                        <a href="#">Shadify a link</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">About </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">GitHub </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-4">
+                    <img src="assets/img/Cogn_mode.png" width="100%">
+                </div>
+                <div class="col-sm-8">
+                    <h1>Make any link instantly shadier</h1>
+                    <div id="thingyDiv">
+                        <input id="urlIn" class="input-lg" type="text" placeholder="Enter legitimate URL">
+                    </div>
+                    <style>
+                        .txtarea {
+                            width: 100%;
+                            background-color: #2c2f33;
+                            color: #f442d7;
+                            margin-top: 10px;
+                            border: none;
+                            border-radius: 0;
+                        }
+                    </style>
+                    <textarea disabled id="out" style="width:100%" class="txtarea input-lg" placeholder="Your suspicious url 0.o"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        function getShadyWord() {
+            var shadyWords = [
+                "attack",
+                "immigrants",
+                "free",
+                "virus",
+                "wannacry",
+                "minecraft",
+                "drill",
+                "airport_security",
+                "taskforce",
+                "cops",
+                "disaster",
+                "milita",
+                "deaths",
+                "hostage",
+                "explosion",
+                "dirty_bomb",
+                "swat",
+                "standoff",
+                "ip_stealer",
+                "hot_older_goats",
+                "russian-sites-for-bootleg-everything",
+                "barely-legal",
+                "just-legal",
+                "real-life-headshots",
+                "--start.spamBot-this-ip",
+                "ddos_director"
+            ]
+            return shadyWords[Math.floor(Math.random() * shadyWords.length)];
+        }
+
+        function getShadySeperator() {
+            var seps = [
+                "&",
+                "__",
+                "/",
+                "$_",
+                "+",
+                "&",
+                "[",
+                "]"
+            ];
+            return seps[Math.floor(Math.random() * seps.length)]
+        }
+
+        function transform(url) {
+
+            var b64url = btoa(url);
+            var wordspam = "";
+            while (wordspam.length < 51) {
+                wordspam = wordspam + getShadyWord() + getShadySeperator()
+            }
+            return "http://jwte.ch:32149/" + b64url + "_&*.." + wordspam
+        }
+
+        $("#urlIn").keyup(function (event) {
+            //setTimeout(function () {
+            var url = $("#urlIn").val();
+
+            $("#out").val(transform(url))
+            //}, 0)
+
+        })
+    </script>
+</body>
+
+</html>
